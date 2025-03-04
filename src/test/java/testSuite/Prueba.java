@@ -18,16 +18,16 @@ public class Prueba {
         webDriver.get(URL);
     }
 
-    @AfterTest
+    /*@AfterTest
     public void closeDriver() {
         if (webDriver != null) {
             webDriver.quit();
         }
-    }
+    }*/
 
     @Test
-    public void pruebaLogin1() {
+    public void PruebaLogin1() {
         Logeo logeo = new Logeo(webDriver);
-        logeo.pruebalogin1("nvivas", "qanova");
+        logeo.PruebaLogin1("nvivas", "qanova");
     }
 }

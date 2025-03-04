@@ -15,7 +15,7 @@ public class Logeo {
         this.webDriver = webDriver;
     }
 
-    public void pruebalogin1(String username, String password) {
+    public void PruebaLogin1(String username, String password) {
         login = new Login(webDriver);
         cargaInformacion = new CargaInformacion(webDriver);
 
@@ -24,5 +24,11 @@ public class Logeo {
         login.clickBotonLogin();
 
         cargaInformacion.recuperarTitulo();
+        cargaInformacion.rellenarCampoTexto ("Testeo");
+        cargaInformacion.rellenarCampoMail("aaa@aa.com") ;
+        cargaInformacion.rellenarCampoAreaTexto ("AAAA");
+        cargaInformacion.rellenarCampoFecha("02/02/2023");
+        cargaInformacion.rellenarCampoLista( "valor 3");
+        cargaInformacion.selecionMultiple("1,3");
     }
 }
