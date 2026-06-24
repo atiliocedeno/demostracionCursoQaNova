@@ -8,15 +8,14 @@ public class BusquedaAnimalesGoogle {
     private Google google;
 
     public void busquedaPerro(WebDriver driver) {
-        google = new Google(driver); // Usar el parámetro "driver"
+        google = new Google(driver);
         google.ingresarBusqueda("Perro");
-        google.clickBotonBusqueda();
+        google.presionarEnter();
     }
 
     public void busquedaGato(WebDriver driver) {
-        google = new Google(driver); // Usar el parámetro "driver"
+        google = new Google(driver);
         google.ingresarBusqueda("Gato");
-        google.clickBotonBusqueda();
+        google.presionarEnter();
     }
 }
-

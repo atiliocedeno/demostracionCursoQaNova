@@ -30,5 +30,7 @@ public class Logeo {
         cargaInformacion.rellenarCampoFecha("02/02/2023");
         cargaInformacion.rellenarCampoLista( "valor 3");
         cargaInformacion.selecionMultiple("1,3");
+        cargaInformacion.comboRadio(1);
+        cargaInformacion.clickBtnEnviar();
     }
 }
