@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import static utils.Constants.Constants.AMBIENTE;
 
-public class Utils {
+public class        Utils {
 
     public static String tipoAmbiente() {
         if (AMBIENTE.equals("QA")) {
