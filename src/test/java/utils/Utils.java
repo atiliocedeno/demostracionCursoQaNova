@@ -8,8 +8,7 @@ import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
-
-import static Utils.Constants.Constants.AMBIENTE;
+import static utils.Constants.Constants.AMBIENTE;
 
 public class Utils {
 

@@ -1,34 +1,54 @@
 package page;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.DriverContext;
+import utils.Reporte.EstadoPrueba;
+import utils.Reporte.PdfQaNovaReports;
+import java.time.Duration;
+
 
 public class Login {
+
     @FindBy(xpath = "//*[@id=\"imUname\"]")
-    WebElement inputUsername;
+    WebElement inputUsuario;
 
     @FindBy(xpath = "//*[@id=\"imPwd\"]")
-    WebElement inputPassword;
-
+    WebElement inputClave;
 
     @FindBy(xpath = "//*[@id=\"imLogin\"]/form/div[3]/input")
-    WebElement btnLogin;
+    WebElement btnIngresar;
 
 
-    public Login(WebDriver webDriver) {
-        PageFactory.initElements(webDriver, this);
+    WebDriverWait webDriverWait;
+
+    public Login(){
+
+        PageFactory.initElements(DriverContext.getDriver(), this);
+
+        this.webDriverWait = new WebDriverWait(
+                DriverContext.getDriver(),
+                Duration.ofSeconds(30)
+        );
     }
 
-    public void ingresaUser (String usuario) {
-        inputUsername.sendKeys(usuario);
+    public void ingresarUsuario(String usuario){
+
+        webDriverWait.until(ExpectedConditions.visibilityOf(inputUsuario));
+        PdfQaNovaReports.addWebReportImage("Despliegue Login", "Login desplegado correctamente", EstadoPrueba.PASSED, false);
+        inputUsuario.sendKeys(usuario);
     }
 
-    public void ingresaClave (String clave) {
-        inputPassword.sendKeys(clave);
+    public void ingresarClave(String clave){
+
+        inputClave.sendKeys(clave);
     }
-    public void clickBotonLogin() {
-        btnLogin.click();
+
+    public void clickBtnIngresar(){
+        PdfQaNovaReports.addWebReportImage("Datos Login", "Se ingresa datos login", EstadoPrueba.PASSED, false);
+        btnIngresar.click();
     }
 }

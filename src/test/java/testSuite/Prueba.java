@@ -1,33 +1,60 @@
 package testSuite;
 
-import java.time.Duration;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
 import testClass.BusquedaAnimalesGoogle;
 import testClass.Logeo;
+import utils.Constants.Navegador;
+import utils.DriverContext;
+import utils.Reporte.PdfQaNovaReports;
 
 public class Prueba {
 
-    private WebDriver webDriver;
+    ChromeDriver webDriver;
 
+    String url = "http://www.qanovagroup.com/piloto";
+
+    @BeforeTest
+    public void setUp(){
+
+        DriverContext.setUp(Navegador.Chrome, url);
+
+        PdfQaNovaReports.createPDF();
+    }
+
+    @AfterTest
+    public void closeDriver(){
+
+        DriverContext.closeDriver();
+
+        PdfQaNovaReports.closePDF();
+    }
+
+    @Test
+    public void PruebaLogin1() {
+
+        DriverContext.getDriver().get(url);
+
+        Logeo logeo = new Logeo();
+
+        logeo.PruebaLogin1(
+                "nvivas",
+                "qanova"
+        );
+    }
+
+    /* "Variables antiguas - primeros ejerciciones"
     private final String URL_QANOVA = "https://qanovagroup.com/piloto/";
-    private final String URL_GOOGLE = "https://www.google.cl";
+    private final String URL_GOOGLE = "https://www.google.cl";*/
+
+    /* PRIMEROS EJERCICIOS
 
     @BeforeTest
     public void setUp() {
-
-        webDriver = new ChromeDriver();
-
-        webDriver.manage().window().maximize();
-
-        webDriver.manage().timeouts().implicitlyWait(
-                Duration.ofSeconds(10)
-        );
+        DriverContext.setUp(Navegador.Chrome,URL_GOOGLE);
     }
 
     @Test
@@ -41,28 +68,6 @@ public class Prueba {
         busquedaAnimalesGoogle.busquedaPerro(webDriver);
 
         Thread.sleep(5000);
-    }
+    }*/
 
-    @Test
-    public void PruebaLogin1() {
-
-        webDriver.get(URL_QANOVA);
-
-        Logeo logeo = new Logeo(webDriver);
-
-        logeo.PruebaLogin1(
-                "nvivas",
-                "qanova"
-        );
-    }
-
-    @AfterTest
-    public void closeDriver() throws InterruptedException {
-
-        Thread.sleep(10000); // 10 segundos
-
-        if (webDriver != null) {
-            webDriver.quit();
-        }
-    }
 }

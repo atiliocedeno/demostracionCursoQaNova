@@ -5,23 +5,15 @@ import page.CargaInformacion;
 import page.Login;
 
 public class Logeo {
-
     private Login login;
     private CargaInformacion cargaInformacion;
-    private WebDriver webDriver;
-
-    // Constructor correcto
-    public Logeo(WebDriver webDriver) {
-        this.webDriver = webDriver;
-    }
-
     public void PruebaLogin1(String username, String password) {
-        login = new Login(webDriver);
-        cargaInformacion = new CargaInformacion(webDriver);
+        login = new Login();
+        cargaInformacion = new CargaInformacion();
 
-        login.ingresaUser(username);
-        login.ingresaClave(password);
-        login.clickBotonLogin();
+        login.ingresarUsuario(username);
+        login.ingresarClave(password);
+        login.clickBtnIngresar();
 
         cargaInformacion.recuperarTitulo();
         cargaInformacion.rellenarCampoTexto ("Testeo");

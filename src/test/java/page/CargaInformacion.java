@@ -1,26 +1,25 @@
 package page;
 
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.DriverContext;
+
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-import java.lang.reflect.Array;
-import java.time.Duration;
-
 public class CargaInformacion {
 
-    WebDriver driver;
-
-    WebDriverWait wait;
+    private WebDriverWait webDriverWait;
 
     @FindBy(xpath = "//*[@id=\"imPgTitle\"]")
     private WebElement titulo;
@@ -58,37 +57,54 @@ public class CargaInformacion {
     @FindBy(id = "imObjectForm_1_8_2")
     private WebElement rdbtnCombo3;
 
-    @FindBy(id = "imObjectForm_1_submit")
+    @FindBy(xpath = "//*[@id='imObjectForm_1_submit']")
     private WebElement btnEnviar;
 
     @FindBy(xpath = "//*[@id=\"imObjectForm_1_buttonswrap\"]/input[2]")
     private WebElement btnResetear;
 
-    WebDriver webDriver;
+    @FindBy(id = "imObjectForm_1_5_icon")
+    private WebElement iconoCalendario;
 
-    WebDriverWait webDriverWait;
+    @FindBy(id = "imDPleft")
+    private WebElement btnRetrocederMes;
 
-    public  CargaInformacion(WebDriver webDriver) {
-        PageFactory.initElements(webDriver, this);
-        this.webDriver = webDriver;
+    @FindBy(id = "imDPright")
+    private WebElement btnAvanzarMes;
+
+    public CargaInformacion() {
+
+        PageFactory.initElements(
+                DriverContext.getDriver(),
+                this
+        );
+
+        this.webDriverWait = new WebDriverWait(
+                DriverContext.getDriver(),
+                Duration.ofSeconds(30)
+        );
     }
 
-    public String recuperarTitulo () {
-        WebDriverWait webDriverWait = new WebDriverWait(webDriver, Duration.ofSeconds(30));
-        webDriverWait.until(ExpectedConditions.visibilityOf(titulo));
-        String texto = titulo.getText();
-        return texto;
-    }
+    public String recuperarTitulo() {
 
+        webDriverWait.until(
+                ExpectedConditions.visibilityOf(titulo)
+        );
+
+        return titulo.getText();
+    }
     public void rellenarCampoTexto(String texto) {
         campoTexto.sendKeys(texto);
     }
+
     public void rellenarCampoMail(String mail) {
         campoCorreo.sendKeys(mail);
     }
+
     public void rellenarCampoAreaTexto(String areaTexto) {
         campoTextArea.sendKeys(areaTexto);
     }
+
     public void rellenarCampoFecha(String fecha) {
         campoFecha.sendKeys(fecha);
     }
@@ -98,34 +114,37 @@ public class CargaInformacion {
         select.selectByValue(valor);
     }
 
-    public void selecionMultiple(String indicador){
+    public void selecionMultiple(String indicador) {
 
         String[] indicadores = indicador.split(",");
-        for (String nro:indicadores) {
+
+        for (String nro : indicadores) {
+
             int numero = Integer.parseInt(nro);
-            switch (numero){
+
+            switch (numero) {
 
                 case 1:
                     campoMultiple1.click();
                     break;
 
-            case 2:
-                campoMultiple2.click();
-                break;
+                case 2:
+                    campoMultiple2.click();
+                    break;
 
-            case 3:
-                campoMultiple3.click();
-                break;
+                case 3:
+                    campoMultiple3.click();
+                    break;
 
-            default:
-                System.out.println("Valor no procesable");
+                default:
+                    System.out.println("Valor no procesable");
+            }
         }
     }
-    }
 
-    public void comboRadio(int indicador){
+    public void comboRadio(int indicador) {
 
-        switch (indicador){
+        switch (indicador) {
 
             case 1:
                 rdbtnCombo1.click();
@@ -138,8 +157,6 @@ public class CargaInformacion {
             case 3:
                 rdbtnCombo3.click();
                 break;
-
-            default:
         }
     }
 
@@ -182,21 +199,24 @@ public class CargaInformacion {
                 btnAvanzarMes.click();
             }
         }
+
+        DriverContext.getDriver()
+                .findElement(By.xpath("//*[@id=\"imDPcal\"]//td[text()='" + dia + "']"))
+                .click();
     }
 
-    public void clickBtnEnviar(){
+
+
+    public void clickBtnEnviar() {
+
+        webDriverWait.until(
+                ExpectedConditions.elementToBeClickable(btnEnviar)
+        );
+
         btnEnviar.click();
     }
 
-    public void clickBtnReset(){
+    public void clickBtnReset() {
         btnResetear.click();
     }
-    @FindBy(id = "imObjectForm_1_5_icon")
-    private WebElement iconoCalendario;
-
-    @FindBy(id = "imDPleft")
-    private WebElement btnRetrocederMes;
-
-    @FindBy(id = "imDPright")
-    private WebElement btnAvanzarMes;
 }
