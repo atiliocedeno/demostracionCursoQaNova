@@ -9,13 +9,16 @@ import testClass.BusquedaAnimalesGoogle;
 import testClass.Logeo;
 import utils.Constants.Navegador;
 import utils.DriverContext;
+import utils.ReadProperties;
 import utils.Reporte.PdfQaNovaReports;
+
+import java.text.ParseException;
 
 public class Prueba {
 
     ChromeDriver webDriver;
 
-    String url = "http://www.qanovagroup.com/piloto";
+    String url = ReadProperties.readFromConfig("Propiedades.properties").getProperty("url");
 
     @BeforeTest
     public void setUp(){
@@ -34,16 +37,15 @@ public class Prueba {
     }
 
     @Test
-    public void PruebaLogin1() {
+    public void PruebaLogin1() throws ParseException {
 
         DriverContext.getDriver().get(url);
 
         Logeo logeo = new Logeo();
+        String usuario = ReadProperties.readFromConfig("Propiedades.properties").getProperty("usuario");
+        String clave = ReadProperties.readFromConfig("Propiedades.properties").getProperty("clave");
 
-        logeo.PruebaLogin1(
-                "nvivas",
-                "qanova"
-        );
+        logeo.PruebaLogin1(usuario, clave);
     }
 
     /* "Variables antiguas - primeros ejerciciones"

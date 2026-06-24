@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.DriverContext;
 import utils.Reporte.EstadoPrueba;
 import utils.Reporte.PdfQaNovaReports;
+import utils.Validaciones;
+
 import java.time.Duration;
 
 
@@ -28,16 +30,10 @@ public class Login {
     public Login(){
 
         PageFactory.initElements(DriverContext.getDriver(), this);
-
-        this.webDriverWait = new WebDriverWait(
-                DriverContext.getDriver(),
-                Duration.ofSeconds(30)
-        );
     }
 
     public void ingresarUsuario(String usuario){
-
-        webDriverWait.until(ExpectedConditions.visibilityOf(inputUsuario));
+        Validaciones.validarObjeto(inputUsuario,"Input usuario");
         PdfQaNovaReports.addWebReportImage("Despliegue Login", "Login desplegado correctamente", EstadoPrueba.PASSED, false);
         inputUsuario.sendKeys(usuario);
     }

@@ -8,6 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.DriverContext;
+import utils.Reporte.EstadoPrueba;
+import utils.Reporte.PdfQaNovaReports;
+import utils.Validaciones;
 
 
 import java.text.ParseException;
@@ -86,11 +89,8 @@ public class CargaInformacion {
     }
 
     public String recuperarTitulo() {
-
-        webDriverWait.until(
-                ExpectedConditions.visibilityOf(titulo)
-        );
-
+        Validaciones.validarObjeto(titulo,"titulo");
+        PdfQaNovaReports.addWebReportImage("Despliegue carga información", "Carga información desplegada correctamente", EstadoPrueba.PASSED, false);
         return titulo.getText();
     }
     public void rellenarCampoTexto(String texto) {
@@ -200,14 +200,16 @@ public class CargaInformacion {
             }
         }
 
-        DriverContext.getDriver()
-                .findElement(By.xpath("//*[@id=\"imDPcal\"]//td[text()='" + dia + "']"))
-                .click();
+        PdfQaNovaReports.addWebReportImage("Se selecciona fecha", "Se selecciona fecha: " + fecha + " desde calendario", EstadoPrueba.PASSED, false);
+
+        DriverContext.getDriver().findElement(By.xpath("//*[@id=\"imDPcal\"]//td[text()='" + dia + "']")).click();
     }
 
 
 
     public void clickBtnEnviar() {
+
+        PdfQaNovaReports.addWebReportImage("Datos del formulario", "Se ingresaron los datos del formulario correctamente", EstadoPrueba.PASSED, false);
 
         webDriverWait.until(
                 ExpectedConditions.elementToBeClickable(btnEnviar)
